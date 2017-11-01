@@ -1,0 +1,329 @@
+﻿
+
+@model MMP.Models.Property
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Property Details</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".AgentPhoneNumber").hide();
+
+            $(".showNumber").click(function () {
+                $(".AgentPhoneNumber").show();
+                //$(this).prop("disabled", true);
+                $(this).hide();
+            });
+        });
+    </script>
+    <style>
+        body {
+            /*background-color:#ede7e7;*/
+            /*background-color: #DCDCDC;*/
+        }
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 600px;
+            border-left: groove;
+           
+        }
+
+        .sideInnerNav {
+            background-color: #ffffff;
+            height: 400px;
+           
+            
+        }
+
+            .sideInnerNav p {
+                font-weight: bold;
+            }
+
+        .sidenav h4 {
+            /*background:#9ec6f1;*/
+        }
+        .sidenav ul{
+            padding-top: 15px;
+        } 
+        .sidenav ul li a:hover {
+            background: #9ec6f1;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .mainContent {
+            /*background: #9ec6f1;*/
+            height: 600px;
+            border-right: groove;
+            border-left: groove;
+            padding-top: 15px;
+            padding-right: 15px;
+            /*background-color:#808080;*/
+            
+        }
+
+        .topBarLine {
+            margin-bottom: 0px;
+        }
+
+            .topBarLine h3 {
+                color: #ffffff;
+            }
+
+        #myTable {
+            /*margin-top:30px;*/
+        }
+
+        #btnViewProperties, #btnUpdateProperty {
+            width: 100%;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .col3 {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .innerRow {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        #editForm {
+           
+            background: #ffffff;
+            margin-top: 15px;
+            height: 100%;
+            padding-left: 50px;
+            padding-right: 0px;
+            /*margin-right: 15px;
+            margin-left: 15px;*/
+        }
+
+        .description {
+            
+        }
+
+        #btnDelete {
+            width: 100%;
+        }
+
+        #successMessage {
+            color: darkgreen;
+            font-weight: bold;
+        }
+
+        .addToWishLink span:hover {
+            color: #ff0000;
+        }
+
+        .addToWishLink span {
+            color: #808080;
+        }
+
+        .glyphicon.glyphicon-heart {
+            font-size: 50px;
+        }
+        .agentDetails {
+            margin-top: 15px;
+            border: 4px solid;
+            border-color: #0094ff;
+            text-align: center;
+            height: 300px;
+           margin-bottom:10px;
+           padding-top:40px;
+        }
+
+        #btnSubmit{
+          margin-left:35px;
+          margin-right:35px;
+          width:280px;
+          margin-bottom:15px;
+        } 
+        #name, #email, #phone, #messageM {
+            width: 100%;
+            margin: auto;
+        }
+        .contactAgentForm{
+            background-color:#9ec6f1;
+          
+            padding-top: 10px;
+        }
+
+            .contactAgentForm h4 {
+                text-align: center;
+            }
+            .contactAgentForm p {
+                margin-left: 35px;
+            }
+        .AgentPhoneNumber{
+            margin-bottom:70px;
+        }
+
+        .categoryByAgent .owner{
+            opacity:0.5;
+        }
+
+        .addToWishLink {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            /*color: #ffffff;
+            font-weight: bold;*/
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialPage")
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3>Property Details</h3>
+        </div>
+    </div>
+    <div class="container">
+        @{
+            var base64 = "";
+            var prodImage = "";
+            try
+            {
+                base64 = Convert.ToBase64String(Model.image);
+                prodImage = string.Format("data:image/png;base64,{0}", base64);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            var Rand = "R";
+        }
+        
+           
+                <div class="row innerRow">
+                    @*<div class="col-lg-6 col3"><a href="@Url.Action("Index", "Admin")" class="btn btn-default" id="btnViewProperties">View Properties</a></div>
+                    <div class="col-lg-6 col3"><a href="@Url.Action("UpdateProperty", "Admin")" class="btn btn-default" id="btnUpdateProperty">Update Properties</a></div>*@
+                   
+
+
+
+                    <div class="col-sm-8 col-md-8 col-lg-8" id="editForm">
+                        <div class="imageDiv">
+                            <img src="@prodImage" style="height:300px;width:100%;" class="img-responsive" id="myImg" />
+                            <a class="addToWishLink" href="#" data-toggle="tooltip" title="Add To Wish List"><span class="glyphicon glyphicon-heart addToWish"></span></a></p>
+                        </div>
+                        
+                        <div class="details">
+                            <p>@Html.DisplayFor(p => p.title) in @Html.DisplayFor(p => p.location)</p>
+                           
+                            <h4>@Rand @Html.DisplayFor(p => p.price)</h4>
+                           
+                        </div>
+                        <div class="description">
+                            <h4>Property Description</h4>
+                            <span>@Html.DisplayFor(p => p.Desc)</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 col-md-4 col-lg-4 sideInnerNav">
+                        
+                        @*<p>@Html.DisplayFor(p => p.status)</p>*@
+                        
+
+                        @{
+                           
+                        }
+                        <div class="agentDetails">
+                            <p>@ViewBag.agentName</p>
+                            <p class="owner">Owner</p>
+                            <button type="button" class="btn btn-primary showNumber"><span class="glyphicon glyphicon-phone">Show Phone Number</span></button>
+                            <p class="AgentPhoneNumber">@ViewBag.agentPhone</p>
+                            <p class="categoryByAgent">@ViewBag.catName by Owner</p>
+                        </div>
+                        <div class="contactAgentForm">
+                            @using (Html.BeginForm("PropertyDetails", "Home", FormMethod.Post))
+                            {
+
+
+                                   <h4>Contact Owner</h4>
+
+                                
+                                    <div class="form-group">
+                                        <p>Your Details</p>
+                                        <input class="form-control" value="@ViewBag.userName" placeholder="Name" type="text" id="name" name="name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" value="@ViewBag.userEmail" placeholder="Email" type="text" id="email" name="email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" value="@ViewBag.userPhone" placeholder="Phone" type="text" id="phone" name="phone" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p>Your Message</p>
+                                        <textarea class="form-control" rows="5" cols="80" id="messageM" name="messageM" required="required"> </textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" id="btnSubmit" class="btn btn-success">Send Message</button>
+                                    </div>
+                                
+
+
+
+                            }
+                        </div>
+                       
+
+                    </div>
+
+                </div>
+            
+       
+    </div>
+    @*<footer>
+        @Html.Partial("_FooterPartialPage")
+       
+    </footer>*@
+    
+</body>
+</html>
+
+
+
+
+
+

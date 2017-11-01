@@ -1,0 +1,170 @@
+﻿@model  IEnumerable<MMP.Models.User>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Suspend Users</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+    <style>
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 500px;
+            border: groove;
+        }
+
+            .sidenav h4 {
+                /*background:#9ec6f1;*/
+            }
+
+            .sidenav ul li a:hover {
+                background: #9ec6f1;
+                color: #000000;
+                font-weight: bold;
+            }
+
+        .mainContent {
+            background: #9ec6f1;
+            height: 500px;
+            border: groove;
+            padding-top: 15px;
+        }
+
+        .topBarLine {
+            margin-bottom: 0px;
+        }
+
+            .topBarLine h3 {
+                color: #ffffff;
+            }
+
+        #myTable {
+            /*margin-top:30px;*/
+        }
+
+        #btnAddUser, #btnUpdateUser, #btnDeleteUser, #btnViewUser {
+            width: 100%;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .col3 {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .innerRow {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialPage")
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3>Suspend Users</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 sidenav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li class="divider"><h4><b>Browse Users</b></h4></li>
+                    <li><a href="@Url.Action("GetAllUsers", "Admin")">All Users(@Convert.ToInt32(Session["userCounter"]))</a></li>
+                    <li><a href="@Url.Action("SuspendedUsers", "Admin")">Suspended Users(@Convert.ToInt32(Session["suspendedRserCounter"]))</a></li>
+                    <li><a href="@Url.Action("RemovedUsers", "Admin")">Deleted Users(@Convert.ToInt32(Session["removedUserCounter"]))</a></li>
+
+                    <li class="divider"><h4><b>User Management</b></h4></li>
+                    <li><a href="@Url.Action("AddUsers", "Admin")">Create Users</a></li>
+                    <li><a href="@Url.Action("UsersToUpdate", "Admin")">Update Users</a></li>
+                    <li><a href="@Url.Action("UsersToDelete", "Admin")">Remove Users</a></li>
+                    <li class="active"><a href="@Url.Action("UsersToSuspend", "Admin")">Suspend Users</a></li>
+                    @if (Session["adminID"] != null)
+                    {
+                        @*<li><a href="@Url.Action("Register", "Admin")">Register</a></li>
+                            <li><a href="@Url.Action("Login", "Admin")">Login</a></li>*@
+                        <li><a href="@Url.Action("Logout", "Admin")">Logout</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-9 mainContent">
+                <div class="row innerRow">
+                    <div class="col-lg-3 col3"><a href="@Url.Action("GetAllUsers", "Admin")" class="btn btn-default" id="btnViewUser">View Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("AddUsers", "Admin")" class="btn btn-default" id="btnAddUser">Add Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("UsersToDelete", "Admin")" class="btn btn-default" id="btnDeleteUser">Delete Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("UsersToUpdate", "Admin")" class="btn btn-default" id="btnUpdateUser">Update Users</a></div>
+                </div>
+
+                <h3 style="border-bottom:1px solid;">Suspend Users</h3>
+                <table class="table-bordered table-hover table-striped" id="myTable">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Subscribed?</th>
+                            <th>Suspend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                @**<td>@user.ID</td>*@
+                                <td>@user.firstName</td>
+                                <td>@user.lastName</td>
+                                <td>@user.email</td>
+                                <td>@user.phone</td>
+                                <td>@user.status</td>
+                                <td>@user.subscribe</td>
+                                <td>@Html.ActionLink("Suspend", "SuspendUser", "Admin", new { id = user.ID }, null)</td>
+                                @*<td>@Html.ActionLink("Update", "EditUser" ,  new { controller = "Admin" }, new { id = user.ID })</td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+</body>
+</html>

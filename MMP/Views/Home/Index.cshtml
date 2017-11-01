@@ -1,0 +1,217 @@
+﻿@model IEnumerable<MMP.Models.PropertyCategoryViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+<style>
+    
+    .leftRow {
+        
+        margin-top: 0px;
+        width: 800px;
+    }
+    #pImageCol {
+        padding-left: 0px;
+        padding-right:0px;
+        height: 200px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        box-shadow: 5px 5px;
+        background-color: #ffffff;
+       
+    }
+    #pImageCol img {
+        padding-left: 0px;
+        padding-right: 0px;
+       width:100%;
+        height: 100%;
+    }
+
+    .detailCol {
+        padding-left: 10px;
+        padding-right: 0px;
+        /*border-right: 1px solid;
+        border-top: 1px solid;
+        border-bottom: 1px solid;*/
+        height: 200px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        box-shadow: 5px 5px;
+        background-color: #ffffff;
+    }
+    .rightRow{
+        margin-top:0px;
+        width:300px;
+        margin-left:0px;
+       
+    }
+    .alertsDiv {
+        height: 200px;
+        margin-top: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-left:10px;
+        width: 280px;
+        /*border: 1px solid;*/
+        background-color: #ffffff;
+        box-shadow: 5px 5px;
+    }
+    .agentsDiv {
+        padding-right: 10px;
+        padding-top: 2px;
+        padding-left: 10px;
+        padding-bottom:10px;
+        margin-top:20px;
+        width: 280px;
+        height: auto;
+        background-color: #ffffff;
+        box-shadow: 5px 5px;
+    }
+    
+    #btnAlerts {
+        width: 100%;
+        margin-top: 25px;
+    }
+    .addToWishLink{
+        padding-right:10px;
+    }
+    .addToWishLink span:hover{
+        color: #ff0000;
+
+    }
+
+.addToWishLink span {
+            color: #000000;
+            
+        }
+    .glyphicon.glyphicon-heart {
+        font-size: 30px;
+    }
+    .agentDetailsDiv{
+        border: 1px solid;
+        margin-bottom:5px;
+        padding-bottom:5px;
+        box-shadow: 0px 3px;
+        border-radius:5px;
+    }
+
+    .agentDetailsDiv p {
+       
+        margin-bottom:2px;
+        margin-left:5px;
+    }    /*.zoom {
+        -webkit-transition: all 0.35s ease-in-out;
+        -moz-transition: all 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
+        cursor: -webkit-zoom-in;
+        cursor: -moz-zoom-in;
+        cursor: zoom-in;
+       
+    }
+
+        .zoom:hover,
+        .zoom:active,
+        .zoom:focus {
+            -ms-transform: scale(1.5);
+            -moz-transform: scale(1.5);
+            -webkit-transform: scale(1.5);
+            -o-transform: scale(1.5);
+            transform: scale(1.5);
+            position: relative;
+            z-index: 100;
+           
+        }*/
+</style>
+<div class="body">
+
+
+    @{
+        var location = "";
+        var proID = 0;
+        var agent = "";
+        foreach (var property in Model)
+        {
+            location = property.location;
+            agent = property.agentName;
+        }
+    }
+
+    <div class="row mainRow">
+
+        <div class="col-lg-8 leftCol">
+            @foreach (var property in Model)
+            {
+                var base64 = Convert.ToBase64String(property.image);
+                var prodImage = string.Format("data:image/png;base64,{0}", base64);
+                var Rand = "R";
+                proID = property.propertyID;
+
+
+                <div class="row leftRow pull-left">
+                    <div class="col-lg-4" id="pImageCol">
+                        <img src="@prodImage"  class="img-responsive zoom" id="myImg" />
+                    </div>
+
+
+                    <div class="col-lg-7 detailCol">
+                        <h4><b>@property.title @property.category</b><a class=" addToWishLink pull-right" href="#" data-toggle="tooltip" title="Add To Wish List"><span class="glyphicon glyphicon-heart addToWish"></span></a></h4>
+                        <h4><b>@Rand @property.price</b></h4>
+                        <p>@property.location</p>
+                        <p>@property.Desc</p>
+                        <p><a href="@Url.Action("PropertyDetails", "Home", new { id = property.propertyID})">More details</a></p>
+                    </div>
+
+                </div>
+
+
+            }
+        </div>
+        <div class="col-lg-4 alertsCol">
+            <div class="alertsDiv">
+                <h4 style="border-bottom:1px solid; font-weight:bold">RECEIVE EMAIL ALERTS</h4>
+                <br />
+                <p>Be the first to see new homes for sale in</p>
+                @if (ViewBag.checkLocation != null)
+            {
+                    <p style="font-weight:bold">@location</p>
+                }
+                else
+                {
+                    <p>South Africa</p>
+                }
+
+                <a href="#" class="btn btn-success" id="btnAlerts">Receive Alerts</a>
+            </div>
+            <div class="agentsDiv">
+                <h4 style="border-bottom:1px solid; font-weight:bold">Agents in this area</h4>
+
+                @foreach (var property in Model)
+            {
+                    <div class="agentDetailsDiv">
+                        <p>@property.agentName</p>
+                        <p>@property.agentEmail</p>
+                        <p>@property.agentPhone</p>
+                    </div>
+
+
+                }
+            </div>
+            <div class="suburbsDiv"></div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            
+        });
+
+
+</script>
+    
+

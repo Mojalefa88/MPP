@@ -1,0 +1,254 @@
+﻿@model MMP.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete User</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+    <style>
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 500px;
+            border: groove;
+        }
+
+        .sideInnerNav {
+            background-color: #ffffff;
+            height: 380px;
+            /*border: groove;*/
+            padding-top: 15px;
+            margin-top: 15px;
+            /*margin-left: 20px;*/*/
+        }
+        .sideInnerNav p{
+            margin:10px;
+            font-weight:bold;
+        }
+            .sidenav h4 {
+                /*background:#9ec6f1;*/
+            }
+
+            .sidenav ul li a:hover {
+                background: #9ec6f1;
+                color: #000000;
+                font-weight: bold;
+            }
+
+        .mainContent {
+            background: #9ec6f1;
+            height: 500px;
+            border: groove;
+            padding-top: 15px;
+            padding-right: 15px;
+        }
+
+        .topBarLine {
+            margin-bottom: 0px;
+        }
+
+            .topBarLine h3 {
+                color: #ffffff;
+            }
+
+        #myTable {
+            /*margin-top:30px;*/
+        }
+
+        #btnViewUser, #btnAddUser, #btnUpdateUser, #btnSuspendUser {
+            width: 100%;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .col3 {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .innerRow {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        #editForm {
+            background: #ffffff;
+            margin-top: 15px;
+            height: 380px;
+           
+            /*border: groove;*/
+            /*margin-right: 15px;
+            margin-left: 15px;*/
+        }
+        #btnDelete{
+            width:100%;
+        }
+        #successMessage {
+            color: darkgreen;
+            font-weight:bold;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialPage")
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3>Delete User</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 sidenav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li class="divider"><h4><b>Browse Users</b></h4></li>
+                    <li><a href="@Url.Action("GetAllUsers", "Admin")">All Users(@Convert.ToInt32(Session["userCounter"]))</a></li>
+                    <li><a href="@Url.Action("SuspendedUsers", "Admin")">Suspended Users(@Convert.ToInt32(Session["suspendedRserCounter"]))</a></li>
+                    <li><a href="@Url.Action("RemovedUsers", "Admin")">Deleted Users(@Convert.ToInt32(Session["removedUserCounter"]))</a></li>
+
+                    <li class="divider"><h4><b>User Management</b></h4></li>
+                    <li><a href="@Url.Action("AddUsers", "Admin")">Create Users</a></li>
+                    <li><a href="@Url.Action("UsersToUpdate", "Admin")">Update Users</a></li>
+                    <li class="active"><a href="@Url.Action("UsersToDelete", "Admin")">Remove Users</a></li>
+                    <li><a href="@Url.Action("UsersToSuspend", "Admin")">Suspend Users</a></li>
+                    @if (Session["adminID"] != null)
+                    {
+                        @*<li><a href="@Url.Action("Register", "Admin")">Register</a></li>
+                            <li><a href="@Url.Action("Login", "Admin")">Login</a></li>*@
+                        <li><a href="@Url.Action("Logout", "Admin")">Logout</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-9 mainContent">
+                <div class="row innerRow">
+                    <div class="col-lg-3 col3"><a href="@Url.Action("GetAllUsers", "Admin")" class="btn btn-default" id="btnViewUser">View Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("AddUsers", "Admin")" class="btn btn-default" id="btnAddUser">Add Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("UsersToUpdate", "Admin")" class="btn btn-default" id="btnUpdateUser">Update Users</a></div>
+                    <div class="col-lg-3 col3"><a href="@Url.Action("UsersToSuspend", "Admin")" class="btn btn-default" id="btnSuspendUser">Suspend Users</a></div>
+                @*</div>
+
+                
+               
+                <div class="row">*@
+                    <div class="col-lg-4 sideInnerNav">
+                       
+                            <p>
+                                @Html.DisplayFor(model => model.firstName)
+                            </p>
+
+                            
+                            <p>
+                                @Html.DisplayFor(model => model.lastName)
+                            </p>
+
+                            
+
+                            <p>
+                                @Html.DisplayFor(model => model.email)
+                            </p>
+
+                           
+
+                            <p>
+                                @Html.DisplayFor(model => model.phone)
+                            </p>
+
+
+                            <p>
+                               @Html.DisplayFor(model=> model.status)
+                            </p>
+
+                          
+
+
+                    </div>
+                    <div class="col-lg-8" id="editForm">
+                        @if (ViewBag.result == null)
+                        {
+                            <h3 style="color:#0094ff">Are you sure you want to delete this user?</h3>
+                        }
+                       
+                        
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.ID)
+                                    @Html.HiddenFor(model => model.firstName)
+                                    @Html.HiddenFor(model => model.lastName)
+                                    @Html.HiddenFor(model => model.email)
+                                    @Html.HiddenFor(model => model.password)
+                                    @Html.HiddenFor(model => model.confirmPassword)
+                                    @Html.HiddenFor(model => model.phone)
+                                    @Html.HiddenFor(model => model.subscribe)
+
+                                    <br/>
+                                    <p id="successMessage">@ViewBag.result</p>
+                                    @*<div>
+                                        <label>Provide a reason for remooving a user</label>
+                                        <br/>
+                                        <textarea cols="100" rows="6" id="txtReason" name="txtReason"></textarea>
+                                        <br/>
+                                        <input type="submit" value="Delete Now" class="btn btn-success" id="btnDelete" />
+                                    </div>*@
+                                    
+                                    <label>Provide a reason for removing this user</label>
+                                    <div class="form-group">
+                                        @*@Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="col-lg-10">
+                                            @Html.TextAreaFor(model => model.reason, 6, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                                <input type="submit" value="Delete Now" class="btn btn-success" id="btnDelete" />
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+

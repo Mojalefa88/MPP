@@ -1,0 +1,143 @@
+﻿@model MMP.Models.PropertyCategory
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCategory</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .topBarLine {
+            margin-bottom: 0px;
+        }
+
+            .topBarLine h3 {
+                color: #ffffff;
+            }
+
+        #AddCategoryForm {
+            background: #ffffff;
+            /*margin-top: 15px;
+            margin-left:100px;
+            margin-right:100px;*/
+           margin:150px;
+        }
+
+        /*#subContainer {
+            background: #9ec6f1;
+            height: 550px;
+        }*/
+
+        /*.leftNavContainer {
+            
+            margin-top: 15px;
+            margin-left: 30px;
+            margin-right: 15px;
+            padding-left: 0%;
+        }*/
+
+        #btnSave {
+            width: 100%;
+        }
+        .sidenav {
+      background-color: #f1f1f1;
+       height:500px;
+       border:groove;
+    }
+        .mainContent{
+            background:#9ec6f1;
+            height:500px;
+            border:groove;
+      
+        }
+    </style>
+
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialPage")
+
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3>Property Category</h3>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="subContainer">
+            <div class="row">
+                <div class="col-sm-3 sidenav">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                        <li><a href="@Url.Action("GetAllUsers", "Admin")">All Users(@Convert.ToInt32(Session["userCounter"]))</a></li>
+                        <li><a href="@Url.Action("SuspendedUsers", "Admin")">Suspended Users(0)</a></li>
+                        <li><a href="#section4">Deleted Users(0)</a></li>
+                        <li><a href="#section4">Properties(@Convert.ToInt32(Session["propertyCounter"]))</a></li>
+                        <li class="active"><a href="@Url.Action("AddCategory", "Category")">Categories</a></li>
+                        <li><a href="@Url.Action("Logout", "Admin")">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-9 mainContent">
+
+                    <div class="col-lg-7" id="AddCategoryForm">
+                        @using (Html.BeginForm())
+                        {
+                            <h4 style="border-bottom:1px solid;">Add Property Category</h4>
+                            <br />
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                               
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.category, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-success" id="btnSave" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

@@ -1,0 +1,330 @@
+﻿<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<ul class="nav nav-pills" id="topNavMenu">
+    @*<li class="active"><a href="#">Home</a></li>*@
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            For sale
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                @*@Html.Action("Index", "Home", new { searchProperty = "For Sale" })*@
+                <a href="@Url.Action("Index", "Home", new { searchProperty = "For Sale" })">
+                    <span class="menuTitle">Property For Sale</span>
+                    <span class="desc">Thousands of properties for sale across SA</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Property On Show</span><span class="desc">On Show properties across South Africa</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Developments</span><span class="desc">New homes in secure developments</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Bank Sales &amp; Repos</span><span class="desc">Repossessed homes at low prices</span>
+
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Advice for Buyers</span><span class="desc">Expert advice on buying property</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Find an Agent</span><span class="desc">Find a good estate agent in your area</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Receive Email Alerts</span><span class="desc">Receive notifications on new Properties For Sale</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    @*To Rent*@
+
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            To Rent
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                @*@Html.Action("Index", "Home", new { searchProperty = "To Rent" })*@
+                <a href="@Url.Action("Index", "Home", new { searchProperty = "To Rent" })">
+                    <span class="menuTitle">Property To Rent</span><span class="desc">Thousands of properties to rent across SA</span>
+
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Advice for Tenants</span><span class="desc">Expert advice on renting a property</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Find an Agent</span><span class="desc">Find a good estate agent in your area</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Receive Email Alerts</span><span class="desc">Get notifications on new Property To Rent</span>
+
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Commercial
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Commercial Sales</span><span class="desc">Commercial and industrial property for sale</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Commercial Rentals</span><span class="desc">Commercial and industrial property to rent</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Receive Email Alerts</span><span class="desc">Receive notifications on new  Commercial Property</span>
+
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Advice
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Advice Centre</span><span class="desc">All your property related advice in one spot</span>
+
+                </a>
+            </li>
+            <li class="divider"></li>
+
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Property Advice</span><span class="desc">Insights for buyers, sellers, landlords and tenants</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">News</span><span class="desc">Breaking news in the SA property market</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Lifestyle and Decor</span><span class="desc">Handy maintenance, decor and DIY tips</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Neighbourhoods</span><span class="desc">Get to know SA's best neighbourhoods</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Property TV</span><span class="desc">Catch up on our TV show appearances</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Agent Advice</span><span class="desc">Great advice for industry professionals</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle">Newsletter</span><span class="desc">General and investment advice on the property market</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Services
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Sell Your Property</span><span class="desc">Advertise your property to millions of interested buyers</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Rent Your Property</span><span class="desc"><em class="greenText">Free to advertise</em> on SA's largest rental platform</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+
+            <li>
+                @*@Html.Action("BondCalculator", "Bond")*@
+                <a href="@Url.Action("BondCalculator", "Bond")">
+                    <span class="menuTitle widerTitle">Repayments Calculator</span><span class="desc">Calculate the monthly repayments on your bond</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Affordability Calculator</span><span class="desc">Calculate the maximum bond you can afford</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            List property
+            @*<span class="caret"></span>*@
+        </a>
+        <ul class="dropdown-menu pull-left" id="myDropdown">
+            <li>
+                <a href="@Url.Action("AddProperty", "Property")">
+                    <span class="menuTitle widerTitle">Sell Your Property</span><span class="desc">Advertise your property to millions of interested buyers</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Rent Your Property</span><span class="desc"><em class="greenText">Free to advertise</em> on SA's largest rental platform</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Advice for Sellers</span><span class="desc">Browse our extensive database of articles for sellers</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Advice for Landlords</span><span class="desc">Browse our extensive database of articles for landlords</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    @if (Session["userID"] == null)
+    {
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Sign In
+                @*<span class="caret"></span>*@
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("LoginPartial", "Account")" class="modal-link">
+                        <span class="menuTitle widerTitle">
+                            Login
+                            @*@Html.ActionLink("Login", "LoginPartial", "Account", null, new { @class = "modal-link" })*@
+                        </span><span class="desc">Have an existing account?</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a href="@Url.Action("PartialRegister", "Account")" class="modal-link">
+                        <span class="menuTitle widerTitle">Register</span><span class="desc">Create a new account</span>
+                    </a>
+                    @*@Html.ActionLink("Register", "PartialRegister", "Account", null, new { @class = "modal-link" })*@
+                </li>
+                <li class="divider"></li>
+
+                <li>
+                    <a href="#">
+                        <span class="menuTitle widerTitle">Forgot Your Password</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+            <ul class="dropdown-menu pull-left" role="menu" id="myDropdown">
+                <li>
+
+                    <H4 class="wellcome">@Convert.ToString(Session["lastName"] +" "+Session["userName"])</H4>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="menuTitle widerTitle">Wishlist</span><span class="desc">Track your favourite properties</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="menuTitle widerTitle">Email Alerts</span><span class="desc">Get notified on email propertiess</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+
+                <li>
+                    <a href="#">
+                        <span class="menuTitle widerTitle"> Manage Your Properties</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("EditProfile", "Account")">
+                        <span class="menuTitle widerTitle">Edit Your Details</span>
+                    </a>
+                </li>
+                <li>
+                <a href="#">
+                    <span class="menuTitle widerTitle">Change Your Password</span>
+                </a>
+        </li>
+                <li class="divider"></li>
+
+                <li>
+                    <a href="@Url.Action("Logout", "Account")">
+                        <span class="menuTitle widerTitle">Log Out</span>
+                    </a>
+                </li>
+    </ul>
+        </li>
+        @*<h4>Welcome: @Convert.ToString(Session["userName"])</h4>*@
+    }
+
+    
+   
+   
+    
+    
+   
+
+</ul>
+

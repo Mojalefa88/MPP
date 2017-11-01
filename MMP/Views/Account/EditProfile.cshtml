@@ -1,0 +1,290 @@
+﻿@model MMP.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditProfile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        #editForm{
+            background: #ffffff;
+            margin-top:15px;
+           
+        }
+        
+        #subContainer{
+            background:#9ec6f1;
+            height:550px;
+        }
+        .topBarLine{
+            margin-bottom:0px;
+        }
+        .topBarLine h3{
+            color:#ffffff;
+        }
+        #btnSave{
+            width:100%;
+        }
+        .subSideBar1{
+            background:#f8f5f5;
+            border-bottom: 1px solid;
+        }
+        .leftNavContainer {
+              background:#ffffff;
+            margin-top:15px;
+            margin-left:30px;
+            margin-right:15px;
+            padding-left:0%;
+            
+        }
+        .leftNavContainer ul li {
+        display: block;
+        border-bottom: 1px solid #d9d9d9;
+        margin: 0;
+        padding: 0;
+    }
+     .leftNavContainer ul li .profileCard {
+            
+         margin: 10px auto;
+    
+         height: 90px;
+         background: #f2f2f2;
+         /*-moz-box-sizing: content-box;
+         -webkit-box-sizing: content-box;
+         box-sizing: content-box;*/
+     }
+
+     .profileCard span{
+         margin-bottom:0px;
+         font-weight:bold;
+         color:#000000;
+        
+     }
+    .profileCard {
+         padding-top:10px;
+    }
+     
+        .leftNavContainer ul li .icons {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            outline: none;
+            color: #4d4d4d;
+            padding-bottom:16px;
+            padding-top:16px;
+        }
+     
+        #successMessage{
+            color:darkgreen;
+        }
+        /*Glyphicon Icon*/
+        #wish{
+            color:red;
+        }
+        #envelope{
+            color:#eeb90c
+        }
+        /*Glyphicon Icon End*/
+       
+    </style>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialPage")
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3>Edit Your Details</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div id=subContainer>
+            <div class="row">
+                @*<div class="col-lg-3" id="SideBar">
+
+                    <div class="subSideBar1">
+                        <h4>@Convert.ToString(Session["lastName"] + " " + Session["userName"])</h4>
+                        <h4>@Html.DisplayFor(model=>model.lastName) + " " + @Html.DisplayFor(model => model.email)</h4>
+                        <h4>@Html.DisplayFor(model => model.email)</h4>
+                        <h4>@Html.DisplayFor(model=>model.phone)</h4>
+                       
+                    </div>
+
+                    <div class="subSideBar2">
+                        <span class="glyphicon glyphicon-heart"> Wishlist</span>
+                    </div>
+                    <div class="subSideBar3">
+                        <span class="glyphicon glyphicon-envelope">Property Alerts</span>
+                    </div>
+                    <div class="subSideBar4">
+                        <span class="glyphicon glyphicon-cog"> Manage Properties</span>
+                    </div>*@
+
+                    <div class="col-lg-3 leftNavContainer ">
+
+                        <ul>
+                            <li>
+
+                                <div class="profileCard">
+                                    <div class="form-inline">
+                                        <span class="usersName">@Html.DisplayFor(model => model.lastName)</span>&nbsp;&nbsp;<span>@Html.DisplayFor(model => model.firstName)</span>
+                                    </div>
+                                    <span id="emailSpan">@Html.DisplayFor(model => model.email)</span>
+                                    <span>@Html.DisplayFor(model => model.phone)</span>
+
+                                </div>
+                            </li>
+                            <li>
+
+                                <a href="#" title="Wishlist" class="icons">
+                                    <span class="glyphicon glyphicon-heart" id="wish"></span>
+                                    Wishlist
+                                </a>
+                                <div class="arrow-right"></div>
+                            </li>
+                            <li>
+
+                                <a href="#" title="Property Alerts"  class="icons">
+                                    <span class="glyphicon glyphicon-envelope" id="envelope"></span>
+                                    Property Alerts
+                                </a>
+                                <div class="arrow-right"></div>
+                            </li>
+                            <li>
+
+                                <a href="#" title="Manage Listings"  class="icons">
+                                    <span class="glyphicon glyphicon-cog" id="settings"></span>
+                                    Manage Properties
+                                </a>
+
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+
+                @*</div>*@
+                <div class="col-lg-7" id="editForm">
+                    <h4 style="border-bottom:1px solid;">Update Your Profile</h4>
+                    <br />
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ID)
+
+                            <p id="successMessage">@ViewBag.result</p>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-lg-10">
+                                    @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.confirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.subscribe, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.subscribe)
+                                        @Html.ValidationMessageFor(model => model.subscribe, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Update Now" class="btn btn-success" id="btnSave" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    
+    @*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+</body>
+</html>

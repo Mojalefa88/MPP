@@ -1,0 +1,169 @@
+﻿@model MMP.Models.Package
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Packages</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .sumCol {
+            float: left;
+            width: 28.3%;
+            padding: 0px;
+            margin-top: 10px;
+           
+        }
+        .singleCol {
+            float: left;
+            width: 28.3%;
+           padding:0px;
+           height:400px;
+
+        }
+
+        .price {
+            list-style-type: none;
+            border: 1px solid #eee;
+            margin: 0;
+            padding: 0;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+            background-color: #9ec6f1;
+        }
+
+            .price:hover {
+                box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+            }
+
+            .price .header {
+               
+                color: white;
+                font-size: 25px;
+            }
+
+            .price li {
+                border-bottom: 1px solid #eee;
+                padding: 20px;
+                text-align: center;
+            }
+
+                .price li a:hover {
+                    font-weight:bold;
+                    color:#000000;
+                }
+
+        .topContainer {
+            margin: auto;
+            width: 700px;
+           
+        }
+        .plp{
+            margin-left:430px;
+            
+        }
+        .row{
+            margin-left:150px;
+        }
+        /*.mainMontainer{
+            border:groove;
+        }*/
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+          
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @Html.Partial("_TopMenuPartialPage")
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3 style="color:#ffffff">Available Packages</h3>
+        </div>
+    </div>
+    <div class="container mainMontainer">
+        <div class="topContainer">
+            <h1>Sell Your Property Privately</h1>
+            <p>Our state-of-the-art website will showcase your home to over a million potential buyers every month.</p>
+            <p>It's really simple to advertise your property with us. Whether you choose to do it yourself or through a</p>
+            <p id="centeredP">consultant, your property will be live on our website in no time.</p>
+        </div>
+        
+        <h2 class="plp">Private Listing Packages</h2>
+        
+         <div class="row">
+             <div class="col-lg-3 sumCol">
+                 <ul class="nav price">
+                     <li class="header">
+                         <h3>Standard Package</h3>
+                          <p><span>R1295</span><small>(incl VAT)</small></p>
+                         <a href="#" class="btn btn-info">Advertise Now</a>
+                     </li>
+                     <li>List1</li>
+                     <li>List2</li>
+                     <li>List3</li>
+                     <li>List4</li>
+                     <li class="footer">
+                         <a href="#" class="btn btn-info">Advertise Now</a>
+                     </li>
+                 </ul>
+             </div>
+             <div class="col-lg-3 singleCol">
+                 <ul class="nav  price">
+                     <li class="header" style="background-color: rgba(18, 128, 13, 0.96)">
+                         <h3>HD Package</h3>
+                         <p><span>R2495</span><small>(incl VAT)</small></p>
+                         <a href="#" class="btn btn-danger">Advertise Now</a>
+                     </li>
+                     <li>List1</li>
+                     <li>List2</li>
+                     <li>List3</li>
+                     <li>List4</li>
+                     <li class="footer">
+                         <a href="#" class="btn btn-danger">Advertise Now</a>
+                     </li>
+                 </ul>
+             </div>
+             <div class="col-lg-3 sumCol">
+                 <ul class="nav price">
+                     <li class="header">
+                         <h3>Featured HD Package</h3>
+                         <p><span>R4495</span><small>(incl VAT)</small></p>
+                         <a href="#" class="btn btn-info">Advertise Now</a>
+                     </li>
+                     <li>List1</li>
+                     <li>List2</li>
+                     <li>List3</li>
+                     <li>List4</li>
+                     <li class="footer">
+                         <a href="#" class="btn btn-info">Advertise Now</a>
+                     </li>
+                 </ul>
+             </div>
+         </div>
+    </div>
+</body>
+</html>

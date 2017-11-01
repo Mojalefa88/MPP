@@ -1,0 +1,72 @@
+﻿@model MMP.Models.User
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<style>
+    .modal-footer {
+        background: #9ec6f1;
+    }
+
+    .modal-header {
+        background: #9ec6f1;
+    }
+    #btnLogin{
+        width:100%;
+    }
+</style>
+<div>
+<div class="modal-header">
+    <button type="button" class="close btn-danger" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Login</h4>
+</div>
+
+@using (Html.BeginForm("LoginPartial", "Account", FormMethod.Post))
+{
+    
+    @Html.AntiForgeryToken()
+    <fieldset class="form-horizontal">
+        @ViewBag.loginError
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { htmlAttributes = new { @class = "text-danger" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { htmlAttributes = new { @class = "text-danger" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <input type="submit" value="Login" class="btn btn-success" id="btnLogin" />
+                @*<button class="btn btn-primary" id="btnSave" type="submit"><span class="glyphicon glyphicon-log-in"></span> Login</button>*@
+            </div>
+        </div>
+    </fieldset>
+}
+
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#btnLogin').click(function () {
+            $('#modal-container').modal('hide');
+        });
+
+    });
+</script>

@@ -1,0 +1,417 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BondCalculator</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .topBarLine {
+            margin-bottom: 0px;
+            background-color:#014503;
+
+            /*color:#11bfee;*/
+        }
+
+        .bottomBarLine {
+            background-image: url('../../Images/nedbanklink.png');
+            height:60px;
+            width:100%;
+        }
+            .topBarLine h3 {
+                color: #ffffff;
+                text-align:center;
+                font-weight:bold;
+            }
+        .numYearsBox label{
+            border: 1px solid;
+            border-radius:5px;
+        }
+        .numYearsBox label::after{
+            background-color:#0094ff;
+            color:#ffffff;
+        }
+        input {
+            width: 100px;
+            margin-left: 0px;
+            margin-bottom: 10px;
+          
+        }
+        button, #btnApply{
+            width:272px;
+        }
+        /*#btnApply{
+            background-color:#fa2c06;
+        }*/ 
+        .buttonApplyDiv {
+            margin-top: 30px;
+            margin-left: 60px;
+        }
+        .buttonSubmitDiv {
+            margin-top: 35px;
+            padding-left: 15px;
+        }
+        label{
+            padding-right:0px;
+           margin-bottom:10px;
+           
+        }
+        .row{
+            margin-top:20px;
+        }
+
+        .numYearsDiv {
+            padding-left: 15px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .col-md-6{
+            padding-left:0px;
+            margin-left:0px;
+        }
+        .col-md-5{
+            margin-right:0px;
+            padding-right:0px;
+            /*padding-top:20px;*/
+        }
+        .rightDisplay {
+            margin-top:30px;
+            padding-top: 10px;
+            padding-right: 70px;
+        }
+        .calculatorContainer{
+            margin-top:30px;
+        }
+
+        /*.rightDisplay button{
+            text-align:center;
+        }*/
+
+        .totalInterestSpan, .totalPaymentSpan, 
+        .loanCapitalSpan, .monthlyInstalmentH2,
+        .years, .rate
+        {
+            color: #014503;
+        }
+
+        .totalInterestDiv, .totalPaymentDiv,
+        .loanCapitalDiv, .monthlyInstalmentDiv ,
+        .yearAndRate
+        {
+            margin-bottom:7px;
+        } 
+        .monthlyInstalmentH2 {
+            border-bottom: 1px solid;
+            font-size:30px;
+           
+        }
+
+        .totalPaymentSpan {
+            font-weight: bold;
+            border-bottom-style: double;
+            border-top: 1px solid;
+        }
+        .rate, .years{
+            margin-right:3px;
+            margin-left:3px;
+            font-weight:bold;
+        }
+
+        .rateExplanation{
+            margin-top:20px;
+            margin-bottom:30px;
+        }
+
+        .rateExplanation p{
+            font-size:12px;
+            margin-left:110px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            var numberOfYears = 0;
+            var tempNumYears = 0;
+
+            tempNumYears = $("#hiddenYears").val();
+
+           
+
+            switch (parseInt(tempNumYears)) {
+                case 5:
+                    $("#ny5").css("background-color", "#11bfee");
+                    break;
+                case 10: $("#ny10").css("background-color", "#11bfee");
+                    break;
+                case 15: $("#ny15").css("background-color", "#11bfee");
+                    break;
+                case 20: $("#ny20").css("background-color", "#11bfee");
+                    break;
+                case 25: $("#ny25").css("background-color", "#11bfee");
+                    break;
+                case 30: $("#ny30").css("background-color", "#11bfee");
+                    break;
+                default: 
+                    $("#ny5").css("background-color", "#ffffff");
+                    $("#ny10").css("background-color", "#ffffff");
+                    $("#ny15").css("background-color", "#ffffff");
+                    $("#ny20").css("background-color", "#ffffff");
+                    $("#ny25").css("background-color", "#ffffff");
+                    $("#ny30").css("background-color", "#ffffff");
+                    
+            }
+
+            $("#ny5").click(function () {
+                numberOfYears = 5;
+                $(this).css("background-color", "#11bfee");
+
+                $("#ny10").css("background-color", "#ffffff");
+                $("#ny15").css("background-color", "#ffffff");
+                $("#ny20").css("background-color", "#ffffff");
+                $("#ny25").css("background-color", "#ffffff");
+                $("#ny30").css("background-color", "#ffffff");
+
+               
+                $("#ny").val(numberOfYears);
+            });
+
+            $("#ny10").click(function () {
+                numberOfYears = 10;
+                $(this).css("background-color", "#11bfee");
+
+                
+                $("#ny5").css("background-color", "#ffffff");
+                $("#ny15").css("background-color", "#ffffff");
+                $("#ny20").css("background-color", "#ffffff");
+                $("#ny25").css("background-color", "#ffffff");
+                $("#ny30").css("background-color", "#ffffff");
+
+               
+                $("#ny").val(numberOfYears);
+            });
+
+            $("#ny15").click(function () {
+                numberOfYears = 15;
+                $(this).css("background-color", "#11bfee");
+
+                $("#ny10").css("background-color", "#ffffff");
+                $("#ny5").css("background-color", "#ffffff");
+               
+                $("#ny20").css("background-color", "#ffffff");
+                $("#ny25").css("background-color", "#ffffff");
+                $("#ny30").css("background-color", "#ffffff");
+
+               
+                $("#ny").val(numberOfYears);
+            });
+
+            $("#ny20").click(function () {
+                numberOfYears = 20;
+                $(this).css("background-color", "#11bfee");
+
+                $("#ny10").css("background-color", "#ffffff");
+                $("#ny5").css("background-color", "#ffffff");
+                $("#ny15").css("background-color", "#ffffff");
+               
+                $("#ny25").css("background-color", "#ffffff");
+                $("#ny30").css("background-color", "#ffffff");
+
+                
+                $("#ny").val(numberOfYears);
+            });
+
+            $("#ny25").click(function () {
+                numberOfYears = 25;
+                $(this).css("background-color", "#11bfee");
+
+                $("#ny10").css("background-color", "#ffffff");
+                $("#ny5").css("background-color", "#ffffff");
+                $("#ny15").css("background-color", "#ffffff");
+                $("#ny20").css("background-color", "#ffffff");
+               
+                $("#ny30").css("background-color", "#ffffff");
+
+               
+                $("#ny").val(numberOfYears);
+            });
+
+            $("#ny30").click(function () {
+                numberOfYears = 30;
+                $(this).css("background-color", "#11bfee");
+
+                $("#ny10").css("background-color", "#ffffff");
+                $("#ny5").css("background-color", "#ffffff");
+                $("#ny15").css("background-color", "#ffffff");
+                $("#ny20").css("background-color", "#ffffff");
+                $("#ny25").css("background-color", "#ffffff");
+
+                $("#ny").val(numberOfYears);
+            });
+            
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+           
+            
+                @Html.Partial("_TopMenuPartialPage")
+           
+           
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-default topBarLine">
+        <div class="container">
+            <h3>Bond Repayment Calculator</h3>
+        </div>
+    </div>
+    @{
+        var R = "R";
+        var monthlyInstalment = 0.0;
+        var totalInterest = 0.0;
+        var totalPayment = 0.0;
+        var loanCapital = 0.0;
+
+        monthlyInstalment = Convert.ToDouble(ViewBag.monthlyPayment);
+        loanCapital = Convert.ToDouble(ViewBag.loanValue);
+        totalInterest = Convert.ToDouble(ViewBag.totalInterest);
+        totalPayment = Convert.ToDouble(ViewBag.totalPayment);
+
+                    }
+
+                    <div class="container">
+                        <div class="row">
+                            @*<div class="col-sm-2 col-md-2 col-lg-2"></div>*@
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-sm-5 col-md-5 col-lg-5 calculatorContainer">
+                                @using (Html.BeginForm("BondCalculator", "Bond"))
+                                {
+
+                                    <div class="form-group">
+                                        <label for="pp" class="control-label col-md-5">Purchase Price</label>
+                                        <div class="col-md-6">
+                                            <div class="form-inline">
+                                                <input type="number" id="pp" name="pp" class="form-control" value="1200000" />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="da" class="control-label col-md-5">Deposit Amount</label>
+                                        <div class="col-md-6">
+                                            <div class="form-inline">
+                                                <input type="number" id="da" name="da" class="form-control" value="120000" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ir" class="control-label col-md-5">Interest Rate*</label>
+                                        <div class="col-md-6">
+                                            <div class="form-inline">
+                                                <input type="number" id="ir" name="ir" value="10.5" class="form-control" />
+                                                <span>%</span>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group numYearsDiv">
+                                        <p>Number of years</p>
+                                        <div class="numYearsBox form-inline">
+                                            <label class="form-control" id="ny5">5</label>
+                                            <label class="form-control" id="ny10">10</label>
+                                            <label class="form-control" id="ny15">15</label>
+                                            <label class="form-control" id="ny20">20</label>
+                                            <label class="form-control" id="ny25">25</label>
+                                            <label class="form-control" id="ny30">30+</label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group buttonSubmitDiv">
+                                        <button class="btn btn-success" type="submit" id="btnCalculate" name="btnCalculate">Calculate</button>
+                                    </div>
+
+                                    <input type="number" id="ny" name="ny" hidden />
+                                }
+                            </div>
+
+                            <div class="col-sm-5 col-md-5 col-lg-5 rightDisplay">
+                                <div class="monthlyInstalmentDiv">
+                                    <p>Monthly Repayment</p>
+                                    <p class="monthlyInstalmentH2">@monthlyInstalment.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-za"))</p>
+                                </div>
+                                <div class="loanCapitalDiv form-inline">
+                                    <label>Loan Value(Capital)</label> 
+                                    <span class="pull-right loanCapitalSpan">@loanCapital.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-za"))</span>
+                                </div>
+
+                                <div class="totalInterestDiv form-inline">
+                                    <label>Total Interest </label> 
+                                    <span class="pull-right totalInterestSpan">@totalInterest.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-za"))</span>
+                                </div>
+
+                                <div class="totalPaymentDiv form-inline">
+                                    <label>Total Repayment</label> 
+                                    <span class="pull-right totalPaymentSpan">@totalPayment.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-za"))</span>
+                                </div>
+
+
+                                @*amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-au"))*@
+
+                                <div class="form-inline yearAndRate">
+                                    <span>Interest at</span><span class="rate">@Convert.ToDouble(ViewBag.interstRate)</span><span>for</span><span class="years">@Convert.ToInt32(ViewBag.years)</span><span>years</span>
+                                </div>
+                                
+                                <div class="buttonApplyDiv">
+                                    <a href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/info/campaigns/home-loans-private-property.html" target="_blank" class="btn btn-danger" id="btnApply">Apply for pre-approval</a>
+                                </div>
+
+                                
+                            </div>
+
+                            
+                            
+                            <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                           
+                        </div>
+                        <div class="rateExplanation">
+                            <p>*The interest rate is by default set to the prime lending rate. Banking institutions may choose to lend to individuals at a rate above or below this prime rate.</p>
+                        </div>
+                    </div>
+
+
+    <a href="https://www.nedbank.co.za/content/nedbank/desktop/gt/en/info/campaigns/home-loans-private-property.html" target="_blank">
+        <div class="bottomBarLine"></div>
+    </a>
+    
+    <input type="hidden" value="@ViewBag.years" id="hiddenYears" />
+</body>
+</html>

@@ -1,0 +1,154 @@
+﻿@model  IEnumerable<MMP.Models.Property>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+    <style>
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 500px;
+            border: groove;
+            padding-top: 15px;
+        }
+        .sidenav h4{
+             /*background:#9ec6f1;
+                 j
+             */
+        }
+        .mainContent{
+            background:#9ec6f1;
+            height:500px;
+            border:groove;
+            padding-top:15px;
+        }
+        .topBarLine{
+            margin-bottom:0px;
+        }
+        .topBarLine h3{
+            color:#ffffff;
+        }
+        #myTable{
+            /*margin-top:30px;*/
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @Html.Partial("_TopMenuPartialAdminPage")
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse topBarLine">
+        <div class="container">
+            <h3 >Admin Dashboard</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 sidenav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("GetAllUsers", "Admin")">Users(@Convert.ToInt32(Session["userCounter"]))</a></li>
+                    @*<li><a href="#section3">Suspended Users(0)</a></li>
+                    <li><a href="#section4">Deleted Users(0)</a></li>*@
+                    <li><a href="@Url.Action("Index", "Admin")">Properties(@Convert.ToInt32(Session["propertyCounter"]))</a></li>
+                    @if (Session["adminID"] == null)
+                    {
+                        <li><a href="@Url.Action("Register", "Admin")">Register</a></li>
+                        <li><a href="@Url.Action("Login", "Admin")">Login</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Logout", "Admin")">Logout</a></li>
+                    }
+                    <li><a href="@Url.Action("AddCategory", "Category")">Add Property Category</a></li>
+                </ul>
+             </div>
+             <div class="col-lg-9 mainContent">
+                 
+                 <h3 style="border-bottom:1px solid;">All Properties</h3>
+                 <table class="table-bordered table-hover table-striped" id="myTable">
+                     <thead>
+                         <tr>
+                             <th>ID</th>
+                             <th>Name</th>
+                             <th>Price</th>
+                             <th>Location</th>
+                             <th>Date Posted</th>
+                             <th>Status</th>
+                             <th>Details</th>
+                             
+                            
+                         </tr>
+                     </thead>
+                     <tbody>
+                         @foreach(var property in Model)
+                         {
+                             <tr>
+                                 <td>@property.propertyID</td>
+                                 <td>@property.title</td>
+                                 <td>@property.price</td>
+                                 <td>@property.location</td>
+                                 <td>@property.date</td>
+                                 <td>@property.status</td>
+                                <td>@Html.ActionLink("View", "PropertyDetails", "Admin", new { id=property.propertyID},null)</td>
+                                
+                             </tr>
+                         }
+                     </tbody>
+                 </table>
+             </div>
+       </div>
+        
+        
+        @*<p>Map</p>
+        <div style="background:#ff0000; width:800px; height:800px;">
+            <map name="Map" id="Map" style="background:#0094ff; width:500px; height:500px;">
+                <area shape="poly" coords="43,289,43,297,52,313,59,322,74,336,81,342,85,341,93,335,103,332,115,330,123,329,128,326,135,322,144,317,155,317,166,317,170,319,170,312,166,307,159,307,152,301,151,294,156,290,158,284,160,277,167,274,175,273,182,268,186,262,186,256,186,253,178,254,171,257,165,257,156,256,145,255,139,256,136,262,134,268,128,275,119,282,111,284,104,287,98,288,92,285,85,278,80,274,74,274,69,268,67,261,65,253,62,244,59,235,56,230,50,230,42,233,34,239,39,244,44,251,48,260,49,270,48,279" href="/for-sale/western-cape/4" alt="Western Cape" data-position="620">
+                <area shape="poly" coords="15,164,5,181,11,190,15,199,17,204,18,214,22,225,29,234,34,239,41,233,49,230,55,230,59,234,65,252,69,267,74,273,79,274,91,284,98,288,105,287,112,283,119,282,127,275,134,267,139,256,144,254,163,257,171,257,178,253,186,253,191,252,203,242,216,230,202,216,195,209,194,202,198,186,203,175,204,163,204,157,196,148,187,142,173,142,165,136,160,127,156,118,145,111,135,120,125,128,116,129,104,128,95,123,93,115,97,105,99,95,95,86,90,76,85,69,84,106,83,167,76,175,68,182,60,186,45,186,33,184,27,180" href="/for-sale/northern-cape/5" alt="Northern Cape" data-position="310">
+                <area shape="poly" coords="186,253,186,262,182,268,175,273,166,274,159,277,156,290,151,294,152,300,159,306,166,306,170,312,170,318,174,319,189,324,195,326,199,325,204,320,214,320,217,316,229,316,236,315,243,312,262,302,278,291,285,286,291,279,303,267,314,258,322,252,328,246,322,241,322,237,323,230,320,222,315,218,311,219,307,225,303,230,299,227,296,217,289,224,282,230,274,231,267,227,259,223,251,227,242,229,216,229,204,241,191,252" href="/for-sale/eastern-cape/7" alt="Eastern Cape" data-position="1550">
+                <area shape="poly" coords="301,177,306,177,312,174,317,168,319,155,321,143,327,142,342,142,356,140,362,141,368,142,374,142,382,129,387,130,396,131,393,135,393,143,390,148,385,157,381,164,379,171,377,177,371,184,363,193,354,202,346,212,341,219,336,229,331,240,329,246,322,241,322,235,323,229,319,221,315,218,311,219,303,229,299,227,298,224,306,216,308,213,308,208,309,204,314,196,315,191,307,183" href="/for-sale/kwazulu-natal/2" alt="Kwazulu Natal" data-position="2790">
+                <area shape="poly" coords="204,156,203,175,198,185,194,201,195,209,215,228,241,229,251,226,259,222,258,213,255,209,254,203,256,199,261,195,266,190,268,183,271,179,278,175,284,173,288,170,294,173,301,177,306,177,313,174,318,168,319,157,321,144,310,139,297,134,286,130,278,129,270,126,265,128,256,133,246,138,237,142,229,144,209,154" href="/for-sale/free-state/6" alt="Free State" data-position="1240">
+                <area shape="poly" coords="145,110,147,108,150,100,152,93,158,87,166,84,171,85,177,88,185,93,192,97,199,100,207,101,216,98,222,92,225,87,228,82,234,75,242,68,246,66,253,70,262,73,270,75,278,77,284,78,290,81,287,86,282,91,277,97,273,102,268,106,266,111,269,116,275,123,271,126,265,128,256,134,244,139,238,142,230,144,222,148,210,154,204,156,196,148,187,142,173,142,165,136,156,118" href="/for-sale/north-west/9" alt="North West" data-position="930"  title="Mreeeeeeeee"/>
+                <area shape="poly" coords="290,81,287,86,281,92,275,98,273,102,268,106,266,111,268,115,275,123,270,126,273,127,279,129,286,130,291,124,298,116,303,108,303,102,300,94,296,87" href="/for-sale/gauteng/3" alt="Gauteng" data-position="2480">
+                <area shape="poly" coords="286,130,292,122,298,116,303,108,303,101,301,97,299,93,296,87,291,82,297,77,305,74,310,74,314,75,317,76,321,75,328,70,335,64,341,61,347,61,353,64,358,69,363,73,367,74,371,70,370,65,369,59,368,53,371,51,377,50,379,59,382,69,384,79,386,87,389,95,393,103,388,109,384,113,383,108,378,104,372,102,367,98,363,98,357,105,351,111,346,118,343,123,344,127,349,132,355,139,348,141,342,141,326,141,321,142,320,144,312,140,303,136" href="/for-sale/mpumalanga/10" alt="Mpumalanga" data-position="2170">
+                <area shape="poly" coords="246,65,250,61,254,55,255,51,256,45,259,40,265,35,272,31,278,27,283,24,290,17,295,13,300,13,305,10,312,6,318,4,325,3,332,3,339,4,346,5,354,6,360,7,368,11,372,17,373,22,373,30,373,37,375,43,377,49,371,50,368,52,369,59,370,66,371,70,367,73,363,72,357,68,353,63,347,61,340,61,335,64,327,71,321,75,316,76,311,74,307,74,304,74,298,76,291,81,287,79,283,77,278,77,270,75,262,73,254,70,249,67" href="/for-sale/limpopo/8" alt="Limpopo" data-position="1860">
+            </map>
+        </div>*@
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+</body>
+</html>
