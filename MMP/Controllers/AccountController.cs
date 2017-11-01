@@ -31,10 +31,10 @@ namespace MMP.Controllers
         {
             mmpDBContext db = new mmpDBContext();
 
-            var errors = ModelState
-                  .Where(x => x.Value.Errors.Count > 0)
-                  .Select(x => new { x.Key, x.Value.Errors })
-                   .ToArray();
+            //var errors = ModelState
+            //      .Where(x => x.Value.Errors.Count > 0)
+            //      .Select(x => new { x.Key, x.Value.Errors })
+            //       .ToArray();
             try
             {
                 if (ModelState.IsValid)
